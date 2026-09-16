@@ -1,0 +1,39 @@
+{
+  "name": "pos-sistem",
+  "version": "1.0.0",
+  "description": "POS Kassa Tizimi",
+  "main": "apps/api/scr/server.ts",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "dev:api": "ts-node apps/api/scr/server.ts",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.10.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.3",
+    "node-telegram-bot-api": "^0.65.1",
+    "pdfkit": "^0.15.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.11.24",
+    "@types/node-telegram-bot-api": "^0.64.6",
+    "@types/pdfkit": "^0.13.4",
+    "jest": "^29.7.0",
+    "prisma": "^5.10.0",
+    "ts-jest": "^29.1.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/*.test.ts"
+    ]
+  }
+}
