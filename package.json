@@ -2,11 +2,11 @@
   "name": "pos-sistem",
   "version": "1.0.0",
   "description": "POS Kassa Tizimi",
-  "main": "apps/api/scr/server.ts",
+  "main": "apps/api/src/server.ts",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
-    "dev:api": "ts-node apps/api/scr/server.ts",
+    "dev:api": "ts-node apps/api/src/server.ts",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev"
   },
@@ -32,8 +32,6 @@
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "node",
-    "testMatch": [
-      "**/*.test.ts"
-    ]
+    "testMatch": ["**/*.test.ts"]
   }
 }
