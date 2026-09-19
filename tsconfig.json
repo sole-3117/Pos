@@ -12,11 +12,16 @@
     "rootDir": "./"
   },
   "include": [
-    "apps/**/*",
+    "apps/api/src/**/*.ts",
+    "apps/web/src/**/*.ts",
+    "apps/web/src/**/*.tsx",
     "prisma/**/*"
   ],
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    "apps/api/scr",
+    "apps/api/services",
+    "apps/api/src/a.py"
   ]
 }
