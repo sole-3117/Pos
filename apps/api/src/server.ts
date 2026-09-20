@@ -1,7 +1,8 @@
 import 'dotenv/config';
 import express from 'express';
-import orderRoutes from './routes/orderRoutes';
 import { PrismaClient } from '@prisma/client';
+import orderRoutes from './routes/orderRoutes';
+import './orderBot';
 
 const prisma = new PrismaClient();
 const app = express();
@@ -12,26 +13,25 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get('/api/products', async (req, res) => {
   try {
-    const tenantId = (req.headers['x-tenant-id'] as string) || 'default-tenant';
-    const products = await prisma.product.findMany({
-      where: { tenantId },
-      orderBy: { name: 'asc' }
-    });
+    const user = (req as any).user;
+    const tenantId = user?.tenantId;
+    if (!tenantId) return res.status(401).json({ error: 'Avtorizatsiyadan o\'tilmagan' });
+    const products = await prisma.product.findMany({ where: { tenantId }, orderBy: { name: 'asc' } });
     res.json(products);
-  } catch (err: any) {
-    res.status(500).json({ error: err.message });
+  } catch (err) {
+    console.error('Products error:', err);
+    res.status(500).json({ error: 'Serverda ichki xatolik yuz berdi' });
   }
 });
 
+import { requireAuth } from './middlewares/authMiddleware';
+app.use('/api/products', requireAuth);
 app.use('/api/orders', orderRoutes);
 
-app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+app.use((err: unknown, req: express.Request, res: express.Response, next: express.NextFunction) => {
   console.error('Server xatoligi:', err);
-  res.status(500).json({ error: err.message || 'Serverda ichki xatolik yuz berdi' });
+  res.status(500).json({ error: 'Serverda ichki xatolik yuz berdi' });
 });
 
-app.listen(PORT, () => {
-  console.log(`🚀 POS API serveri http://localhost:${PORT} portida ishga tushdi`);
-});
-
+app.listen(PORT, () => console.log(`POS API serveri http://localhost:${PORT} portida ishga tushdi`));
 export default app;
