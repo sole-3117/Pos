@@ -1,0 +1,12 @@
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+
+# Build and coverage
+ dist/
+coverage/
+*.tsbuildinfo
