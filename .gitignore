@@ -7,6 +7,6 @@
 node_modules/
 
 # Build and coverage
- dist/
+dist/
 coverage/
 *.tsbuildinfo
